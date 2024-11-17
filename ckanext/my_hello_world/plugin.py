@@ -16,6 +16,7 @@
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from flask import Blueprint, Response
 
 
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
@@ -29,12 +30,11 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
         toolkit.add_resource('fanstatic', 'my_hello_world')
 
     # IRoutes
-    def before_map(self, map):
-        # Tambahkan rute baru
-        map.connect('hello_world', '/hello', controller='ckanext.my_hello_world.controller:HelloWorldController', action='index')
-        return map
+    def get_blueprint(self):
+        blueprint = Blueprint('hello_world', __name__)
 
+        @blueprint.route('/hello')
+        def hello_world():
+            return Response("Hello, World!", mimetype='text/plain')
 
-class HelloWorldController(toolkit.BaseController):
-    def index(self):
-        return "Hello, World!"
+        return blueprint
