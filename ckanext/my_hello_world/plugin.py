@@ -21,6 +21,7 @@ class HelloWorldPlugin(SingletonPlugin):
     """
     Plugin sederhana untuk menambahkan API baru bernama 'hello_world'
     """
+    
     implements(IActions)
 
     def get_actions(self):
