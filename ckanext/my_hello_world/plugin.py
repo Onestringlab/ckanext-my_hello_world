@@ -16,12 +16,11 @@
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from flask import Blueprint, Response
 
 
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
-    plugins.implements(plugins.IRoutes)
+    plugins.implements(plugins.IActions)
 
     # IConfigurer
     def update_config(self, config_):
@@ -29,13 +28,16 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'my_hello_world')
 
-    # IRoutes
-    def get_blueprint(self):
-        print("Registering blueprint for hello_world plugin")  # Debug log
-        blueprint = Blueprint('hello_world', __name__)
+    # IActions
+    def get_actions(self):
+        return {
+            'hello_world': hello_world_action
+        }
 
-        @blueprint.route('/hello_world', methods=['GET'])
-        def hello_world():
-            return Response("Hello, World!", mimetype='text/plain')
 
-        return blueprint
+def hello_world_action(context, data_dict):
+    """
+    Fungsi ini akan menangani permintaan ke /api/3/action/hello_world
+    """
+    # Tambahkan logika Anda di sini, jika perlu
+    return {'message': 'Hello, World!', 'success': True}
