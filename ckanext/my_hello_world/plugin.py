@@ -16,8 +16,6 @@
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from ckan.plugins.toolkit import h
-
 
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -40,5 +38,4 @@ def hello_world_action(context, data_dict):
     """
     Fungsi ini akan menangani permintaan ke /api/3/action/hello_world
     """
-    print(h.get_flask_app().url_map)
     return {'message': 'Hello, World! This is a POST request!', 'success': True, 'method': toolkit.request.method}
