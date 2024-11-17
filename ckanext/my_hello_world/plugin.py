@@ -31,6 +31,7 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
 
     # IRoutes
     def get_blueprint(self):
+        print("Registering blueprint for hello_world plugin")  # Debug log
         blueprint = Blueprint('hello_world', __name__)
 
         @blueprint.route('/hello_world', methods=['GET'])
