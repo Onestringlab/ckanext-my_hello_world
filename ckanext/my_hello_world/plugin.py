@@ -14,14 +14,14 @@
 #             'my_hello_world')
 
 
-from ckan.plugins import SingletonPlugin, implements
+from ckan.plugins import SingletonPlugin, implements, IActions
 from ckan.plugins import toolkit
 
 class HelloWorldPlugin(SingletonPlugin):
     """
     Plugin sederhana untuk menambahkan API baru bernama 'hello_world'
     """
-    implements(toolkit.IActions)
+    implements(IActions)
 
     def get_actions(self):
         # Tambahkan aksi API baru bernama 'hello_world'
