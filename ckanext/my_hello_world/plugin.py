@@ -14,8 +14,8 @@
 #             'my_hello_world')
 
 
-from ckan.plugins import SingletonPlugin, implements, IActions
-from ckan.plugins import toolkit
+from ckan.plugins import SingletonPlugin, implements
+from ckan.plugins.toolkit import IActions, response_json
 
 class HelloWorldPlugin(SingletonPlugin):
     """
