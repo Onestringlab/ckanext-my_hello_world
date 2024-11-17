@@ -1,0 +1,14 @@
+# my_hello_world-js:
+#   filter: rjsmin
+#   output: ckanext-my_hello_world/%(version)s-my_hello_world.js
+#   contents:
+#     - js/my_hello_world.js
+#   extra:
+#     preload:
+#       - base/main
+
+# my_hello_world-css:
+#   filter: cssrewrite
+#   output: ckanext-my_hello_world/%(version)s-my_hello_world.css
+#   contents:
+#     - css/my_hello_world.css
