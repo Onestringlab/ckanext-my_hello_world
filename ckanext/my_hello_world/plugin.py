@@ -39,4 +39,4 @@ def hello_world_action(context, data_dict):
     """
     Fungsi ini akan menangani permintaan ke /api/3/action/hello_world
     """
-    return {'message': 'Hello, World! This is a POST request!', 'success': True}
+    return {'message': 'Hello, World! This is a POST request!', 'success': True, 'method': toolkit.request.method}
