@@ -33,7 +33,7 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
     def get_blueprint(self):
         blueprint = Blueprint('hello_world', __name__)
 
-        @blueprint.route('/hello')
+        @blueprint.route('/hello_world', methods=['GET'])
         def hello_world():
             return Response("Hello, World!", mimetype='text/plain')
 
