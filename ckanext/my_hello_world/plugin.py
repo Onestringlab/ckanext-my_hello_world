@@ -39,8 +39,8 @@ def hello_world_action(context, data_dict):
     """
     Fungsi ini akan menangani permintaan ke /api/3/action/hello_world
     """
-    # Cek apakah permintaan adalah GET
-    if toolkit.request.method == 'GET':
+    # Tambahkan logika untuk mendukung metode GET
+    if context.get('method', '').upper() == 'GET':
         return {'message': 'Hello, World! This is a GET request!', 'success': True}
     else:
         raise toolkit.ValidationError('Only GET method is allowed for this endpoint.')
