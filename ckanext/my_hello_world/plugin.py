@@ -68,4 +68,3 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
             })
 
         return blueprint
-
