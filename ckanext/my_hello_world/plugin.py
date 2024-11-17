@@ -39,5 +39,5 @@ def hello_world_action(context, data_dict):
     """
     Fungsi ini akan menangani permintaan ke /api/3/action/hello_world
     """
-    # Tambahkan logika Anda di sini, jika perlu
-    return {'message': 'Hello, World!', 'success': True}
+    if toolkit.request.method == 'GET':
+        return {'message': 'Hello, World! This is a GET request!', 'success': True}
