@@ -16,7 +16,7 @@
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-
+from ckan.model import Package
 
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -32,27 +32,32 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
     def get_actions(self):
         return {
             'hello_world': hello_world_action,
-            'goodbye_world': goodbye_world_action
+            'get_packages': get_packages_action
         }
 
 
 def hello_world_action(context, data_dict):
     """
-    Menangani permintaan ke /api/3/action/hello_world
+    Endpoint sederhana
     """
-    return {
-        'message': 'Hello, World! This is a POST request!',
-        'success': True,
-        'method': toolkit.request.method
-    }
+    return {'message': 'Hello, World!', 'success': True}
 
 
-def goodbye_world_action(context, data_dict):
+def get_packages_action(context, data_dict):
     """
-    Menangani permintaan ke /api/3/action/goodbye_world
+    Mengambil data paket dari database
     """
-    return {
-        'message': 'Goodbye, World! This is another POST request! Yeay!',
-        'success': True,
-        'method': toolkit.request.method
-    }
+    try:
+        # Mendapatkan semua paket dari tabel `package`
+        packages = Package.get_all()
+        package_list = [
+            {
+                'id': pkg.id,
+                'name': pkg.name,
+                'title': pkg.title
+            }
+            for pkg in packages
+        ]
+        return {'success': True, 'data': package_list}
+    except Exception as e:
+        raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
