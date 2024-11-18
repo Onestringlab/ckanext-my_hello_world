@@ -50,10 +50,10 @@ def get_packages_action(context, data_dict):
     """
     try:
         # Query semua paket dari tabel package
-        packages = Session.query(Package).all()
+        # packages = Session.query(Package).all()
 
         # Mengambil dataset yang privat
-        packages = Session.query(Package).filter(Package.private == True).all()
+        # packages = Session.query(Package).filter(Package.private == True).all()
 
         # Mengambil 10 dataset pertama (paginasi)
         packages = Session.query(Package).limit(10).offset(0).all()
