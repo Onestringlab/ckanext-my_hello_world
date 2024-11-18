@@ -53,10 +53,10 @@ def get_packages_action(context, data_dict):
         # packages = Session.query(Package).all()
 
         # Mengambil dataset yang privat
-        # packages = Session.query(Package).filter(Package.private == True).all()
+        packages = Session.query(Package).filter(Package.private == True).all()
 
         # Mengambil 10 dataset pertama (paginasi)
-        packages = Session.query(Package).limit(10).offset(0).all()
+        # packages = Session.query(Package).limit(10).offset(0).all()
         
         # Mapping hasil query ke dalam format JSON-friendly
         package_list = [
