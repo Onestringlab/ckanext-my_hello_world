@@ -52,7 +52,7 @@ def goodbye_world_action(context, data_dict):
     Menangani permintaan ke /api/3/action/goodbye_world
     """
     return {
-        'message': 'Goodbye, World! This is another POST request!',
+        'message': 'Goodbye, World! This is another POST request! Yeay!',
         'success': True,
         'method': toolkit.request.method
     }
