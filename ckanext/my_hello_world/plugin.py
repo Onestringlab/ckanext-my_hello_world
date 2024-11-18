@@ -17,6 +17,7 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
+
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IActions)
@@ -30,12 +31,28 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
     # IActions
     def get_actions(self):
         return {
-            'hello_world': hello_world_action
+            'hello_world': hello_world_action,
+            'goodbye_world': goodbye_world_action
         }
 
 
 def hello_world_action(context, data_dict):
     """
-    Fungsi ini akan menangani permintaan ke /api/3/action/hello_world
+    Menangani permintaan ke /api/3/action/hello_world
     """
-    return {'message': 'Hello, World! This is a POST request!', 'success': True, 'method': toolkit.request.method}
+    return {
+        'message': 'Hello, World! This is a POST request!',
+        'success': True,
+        'method': toolkit.request.method
+    }
+
+
+def goodbye_world_action(context, data_dict):
+    """
+    Menangani permintaan ke /api/3/action/goodbye_world
+    """
+    return {
+        'message': 'Goodbye, World! This is another POST request!',
+        'success': True,
+        'method': toolkit.request.method
+    }
