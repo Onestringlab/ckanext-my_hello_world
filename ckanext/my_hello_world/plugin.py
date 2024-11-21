@@ -39,62 +39,62 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
         }
     
     # IBlueprint
-    # def get_blueprint(self):
-    #     """
-    #     Method untuk mendaftarkan Blueprint.
-    #     """
-    #     blueprint_mhw = Blueprint('my_hello_world', __name__)
+    def get_blueprint(self):
+        """
+        Method untuk mendaftarkan Blueprint.
+        """
+        blueprint_mhw = Blueprint('my_hello_world', __name__)
 
-    #     @blueprint_mhw.route('/welcome_world', methods=['GET'])
-    #     def welcome_world():
-    #         """
-    #         Route untuk /welcome_world
-    #         """
-    #         return jsonify({
-    #             "message": "Welcome to World!",
-    #             "success": True
-    #         })
+        @blueprint_mhw.route('/welcome_world', methods=['GET'])
+        def welcome_world():
+            """
+            Route untuk /welcome_world
+            """
+            return jsonify({
+                "message": "Welcome to World!",
+                "success": True
+            })
 
-    #     @blueprint_mhw.route('/get_dataset', methods=['GET'])
-    #     def get_dataset():
-    #         try:
-    #             # Query semua paket dari tabel package
-    #             # packages = Session.query(Package).all()
+        @blueprint_mhw.route('/get_dataset', methods=['GET'])
+        def get_dataset():
+            try:
+                # Query semua paket dari tabel package
+                # packages = Session.query(Package).all()
 
-    #             # Mengambil dataset yang privat
-    #             # packages = Session.query(Package).filter(Package.private == True).all()
+                # Mengambil dataset yang privat
+                # packages = Session.query(Package).filter(Package.private == True).all()
 
-    #             # Mengambil 10 dataset pertama (paginasi)
-    #             packages = Session.query(Package).limit(5).offset(0).all()
+                # Mengambil 10 dataset pertama (paginasi)
+                packages = Session.query(Package).limit(5).offset(0).all()
                 
-    #             # Mapping hasil query ke dalam format JSON-friendly
-    #             package_list = [
-    #                 {
-    #                     'id': pkg.id,
-    #                     'name': pkg.name,
-    #                     'title': pkg.title,
-    #                     'private': pkg.private
-    #                 }
-    #                 for pkg in packages
-    #             ]
-    #             return {'success': True, 'data': package_list}
-    #         except Exception as e:
-    #             raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
+                # Mapping hasil query ke dalam format JSON-friendly
+                package_list = [
+                    {
+                        'id': pkg.id,
+                        'name': pkg.name,
+                        'title': pkg.title,
+                        'private': pkg.private
+                    }
+                    for pkg in packages
+                ]
+                return {'success': True, 'data': package_list}
+            except Exception as e:
+                raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
         
-    #     @blueprint_mhw.route('/get_harvest', methods=['GET'])
-    #     def get_harvest():
-    #         try:
-    #             # Query langsung ke tabel harvest_object
-    #             result = Session.execute('SELECT * FROM harvest_object LIMIT 5')
-    #             rows = result.fetchall()
+        @blueprint_mhw.route('/get_harvest', methods=['GET'])
+        def get_harvest():
+            try:
+                # Query langsung ke tabel harvest_object
+                result = Session.execute('SELECT * FROM harvest_object LIMIT 5')
+                rows = result.fetchall()
 
-    #             harvest_data = [dict(row) for row in rows]
+                harvest_data = [dict(row) for row in rows]
 
-    #             return {'success': True, 'data': harvest_data}
-    #         except Exception as e:
-    #             raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
+                return {'success': True, 'data': harvest_data}
+            except Exception as e:
+                raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
 
-    #     return blueprint
+        return blueprint_mhw
 
 
 def hello_world_action(context, data_dict):
