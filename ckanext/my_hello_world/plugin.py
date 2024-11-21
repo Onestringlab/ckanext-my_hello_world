@@ -23,7 +23,7 @@ from flask import Blueprint, jsonify
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IActions)
-    plugins.implements(plugins.IRoutes)
+    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
     def update_config(self, config_):
@@ -38,17 +38,24 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
             'get_packages': get_packages_action
         }
     
-    # IRoutes
-    def before_map(self, map):
-        from paste.deploy.converters import asbool
-        from ckan.config.middleware import make_app
+    # IBlueprint
+    def get_blueprint(self):
+        """
+        Method untuk mendaftarkan Blueprint.
+        """
+        blueprint = Blueprint('my_hello_world', __name__)
 
-        app = make_app()  # Dapatkan aplikasi CKAN berbasis Flask
+        @blueprint.route('/welcome_ckan', methods=['GET'])
+        def welcome():
+            """
+            Route untuk /welcome_ckan
+            """
+            return jsonify({
+                "message": "Welcome to CKAN!",
+                "success": True
+            })
 
-        # Daftarkan blueprint
-        app.register_blueprint(create_blueprint())
-
-        return map
+        return blueprint
 
 
 def hello_world_action(context, data_dict):
@@ -86,16 +93,3 @@ def get_packages_action(context, data_dict):
         return {'success': True, 'data': package_list}
     except Exception as e:
         raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
-
-# Fungsi untuk membuat blueprint Flask
-def create_blueprint():
-    blueprint = Blueprint('my_hello_world', __name__)
-
-    @blueprint.route('/welcome_ckan' , methods=['GET'], view_func=welcome)
-    def welcome():
-        """
-        Route untuk /welcome_ckan
-        """
-        return jsonify({'message': 'Welcome to CKAN!', 'success': True})
-
-    return blueprint
