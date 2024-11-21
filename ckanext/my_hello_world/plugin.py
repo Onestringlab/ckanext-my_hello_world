@@ -18,10 +18,12 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.model import Package
 from ckan.model.meta import Session
+from flask import Blueprint, jsonify
 
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IActions)
+    plugins.implements(plugins.IRoutes)
 
     # IConfigurer
     def update_config(self, config_):
@@ -35,6 +37,12 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
             'hello_world': hello_world_action,
             'get_packages': get_packages_action
         }
+    
+    # IRoutes
+    def before_map(self, map):
+        blueprint = create_blueprint()
+        map.connect('welcome', '/welcome', controller=blueprint)
+        return map
 
 
 def hello_world_action(context, data_dict):
@@ -72,3 +80,16 @@ def get_packages_action(context, data_dict):
         return {'success': True, 'data': package_list}
     except Exception as e:
         raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
+
+# Fungsi untuk membuat blueprint Flask
+def create_blueprint():
+    blueprint = Blueprint('my_hello_world', __name__)
+
+    @blueprint.route('/welcome')
+    def welcome():
+        """
+        Route untuk /welcome
+        """
+        return jsonify({'message': 'Welcome to CKAN!', 'success': True})
+
+    return blueprint
