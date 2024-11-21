@@ -45,13 +45,13 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
         """
         blueprint = Blueprint('my_hello_world', __name__)
 
-        @blueprint.route('/welcome_ckan', methods=['GET'])
+        @blueprint.route('/welcome_world', methods=['GET'])
         def welcome_ckan():
             """
-            Route untuk /welcome_ckan
+            Route untuk /welcome_world
             """
             return jsonify({
-                "message": "Welcome to CKAN!",
+                "message": "Welcome to World!",
                 "success": True
             })
 
