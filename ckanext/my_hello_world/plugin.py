@@ -46,7 +46,7 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
         blueprint_mhw = Blueprint('my_hello_world', __name__)
 
         @blueprint_mhw.route('/welcome_world', methods=['GET'])
-        def welcome_ckan():
+        def welcome_world():
             """
             Route untuk /welcome_world
             """
