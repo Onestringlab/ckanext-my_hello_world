@@ -55,8 +55,6 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
                 "success": True
             })
 
-        return blueprint
-
         @blueprint.route('/get_dataset', methods=['GET'])
         def get_dataset():
             try:
@@ -82,6 +80,8 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
                 return {'success': True, 'data': package_list}
             except Exception as e:
                 raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
+        
+        return blueprint
 
 
 def hello_world_action(context, data_dict):
