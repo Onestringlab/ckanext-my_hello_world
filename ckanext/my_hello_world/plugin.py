@@ -43,9 +43,9 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
         """
         Method untuk mendaftarkan Blueprint.
         """
-        blueprint = Blueprint('my_hello_world', __name__)
+        blueprint_mhw = Blueprint('my_hello_world', __name__)
 
-        @blueprint.route('/welcome_world', methods=['GET'])
+        @blueprint_mhw.route('/welcome_world', methods=['GET'])
         def welcome_ckan():
             """
             Route untuk /welcome_world
@@ -55,7 +55,7 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
                 "success": True
             })
 
-        @blueprint.route('/get_dataset', methods=['GET'])
+        @blueprint_mhw.route('/get_dataset', methods=['GET'])
         def get_dataset():
             try:
                 # Query semua paket dari tabel package
@@ -81,7 +81,7 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
             except Exception as e:
                 raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
         
-        @blueprint.route('/get_harvest', methods=['GET'])
+        @blueprint_mhw.route('/get_harvest', methods=['GET'])
         def get_harvest():
             try:
                 # Query langsung ke tabel harvest_object
