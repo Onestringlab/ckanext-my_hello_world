@@ -23,7 +23,7 @@ from flask import Blueprint, jsonify
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IActions)
-    plugins.implements(plugins.IBlueprint)
+    plugins.implements(plugins.IRoutes)
 
     # IConfigurer
     def update_config(self, config_):
@@ -90,10 +90,10 @@ def get_packages_action(context, data_dict):
 def create_blueprint():
     blueprint = Blueprint('my_hello_world', __name__)
 
-    @blueprint.route('/welcome')
+    @blueprint.route('/welcome_ckan' , methods=['GET'])
     def welcome():
         """
-        Route untuk /welcome
+        Route untuk /welcome_ckan
         """
         return jsonify({'message': 'Welcome to CKAN!', 'success': True})
 
