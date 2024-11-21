@@ -91,7 +91,7 @@ def get_packages_action(context, data_dict):
 def create_blueprint():
     blueprint = Blueprint('my_hello_world', __name__)
 
-    @blueprint.route('/welcome_ckan' , methods=['GET'])
+    @blueprint.route('/welcome_ckan' , methods=['GET'], view_func=welcome)
     def welcome():
         """
         Route untuk /welcome_ckan
