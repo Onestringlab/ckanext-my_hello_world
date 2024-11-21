@@ -40,11 +40,12 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
     
     # IRoutes
     def before_map(self, map):
-        # Register blueprint
+        from paste.deploy.converters import asbool
         from ckan.config.middleware import make_app
-        app = make_app()
 
-        # Tambahkan blueprint ke Flask App
+        app = make_app()  # Dapatkan aplikasi CKAN berbasis Flask
+
+        # Daftarkan blueprint
         app.register_blueprint(create_blueprint())
 
         return map
