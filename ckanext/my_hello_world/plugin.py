@@ -23,7 +23,7 @@ from flask import Blueprint, jsonify
 class MyHelloWorldPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IActions)
-    plugins.implements(plugins.IRoutes)
+    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
     def update_config(self, config_):
