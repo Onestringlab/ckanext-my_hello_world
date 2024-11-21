@@ -81,6 +81,19 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
             except Exception as e:
                 raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
         
+        @blueprint.route('/get_harvest', methods=['GET'])
+        def get_harvest():
+            try:
+                # Query langsung ke tabel harvest_object
+                result = Session.execute('SELECT * FROM harvest_object LIMIT 5')
+                rows = result.fetchall()
+
+                # Cetak hasil query
+                for row in rows:
+                    print(dict(row))
+            except Exception as e:
+                raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
+
         return blueprint
 
 
