@@ -16,6 +16,7 @@
 
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.plugins import IRoutes
 from ckan.model import Package
 from ckan.model.meta import Session
 from flask import Blueprint, jsonify
