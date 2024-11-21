@@ -88,9 +88,7 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
                 result = Session.execute('SELECT * FROM harvest_object LIMIT 5')
                 rows = result.fetchall()
 
-                # Cetak hasil query
-                for row in rows:
-                    print(dict(row))
+                return {'success': True, 'data': dict(row)}
             except Exception as e:
                 raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
 
