@@ -46,7 +46,7 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
         blueprint = Blueprint('my_hello_world', __name__)
 
         @blueprint.route('/welcome_ckan', methods=['GET'])
-        def welcome():
+        def welcome_ckan():
             """
             Route untuk /welcome_ckan
             """
@@ -56,6 +56,32 @@ class MyHelloWorldPlugin(plugins.SingletonPlugin):
             })
 
         return blueprint
+
+        @blueprint.route('/get_dataset', methods=['GET'])
+        def get_dataset():
+            try:
+                # Query semua paket dari tabel package
+                # packages = Session.query(Package).all()
+
+                # Mengambil dataset yang privat
+                # packages = Session.query(Package).filter(Package.private == True).all()
+
+                # Mengambil 10 dataset pertama (paginasi)
+                packages = Session.query(Package).limit(5).offset(0).all()
+                
+                # Mapping hasil query ke dalam format JSON-friendly
+                package_list = [
+                    {
+                        'id': pkg.id,
+                        'name': pkg.name,
+                        'title': pkg.title,
+                        'private': pkg.private
+                    }
+                    for pkg in packages
+                ]
+                return {'success': True, 'data': package_list}
+            except Exception as e:
+                raise toolkit.ValidationError(f'Error fetching data: {str(e)}')
 
 
 def hello_world_action(context, data_dict):
